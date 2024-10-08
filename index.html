@@ -4,9 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Report Generator</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.2/xlsx.full.min.js"></script>
 </head>
 <body>
     <h1>PDF 보고서 생성기</h1>
-    <p>여기에 PDF 보고서를 생성하는 스크립트를 통합할 수 있습니다.</p>
+    <p>버전 엔티티에서 링크된 노트 데이터를 엑셀로 다운로드합니다.</p>
+    <button id="downloadExcel">엑셀 다운로드</button>
+
+    <script>
+        document.getElementById('downloadExcel').addEventListener('click', function() {
+            // 여기에 데이터를 넣으세요. 아래는 예시입니다.
+            const data = [
+                { Note: '노트 1', Content: '내용 1' },
+                { Note: '노트 2', Content: '내용 2' },
+                // 더 많은 데이터 추가 가능
+            ];
+
+            // 데이터 변환
+            const worksheet = XLSX.utils.json_to_sheet(data);
+            const workbook = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(workbook, worksheet, 'Notes');
+
+            // 엑셀 파일 다운로드
+            XLSX.writeFile(workbook, 'notes.xlsx');
+        });
+    </script>
 </body>
 </html>
